@@ -36,7 +36,8 @@ const UserSchema = new Schema({
         website: {
             type: String,
             maxlength: 100
-        }
+        },
+        dob: Date
     },
     password: {
         type: String,
@@ -52,6 +53,12 @@ const UserSchema = new Schema({
         {
             type: Schema.Types.ObjectId,
             ref: 'User'
+        }
+    ],
+    draft_tweets: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Tweet'
         }
     ],
     tweets: [
@@ -85,7 +92,19 @@ const UserSchema = new Schema({
     private: {
         type: Boolean,
         default: false
-    }
+    },
+    blocked_accounts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ],
+    muted_accounts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 }, {timestamps: true})
 
 UserSchema.virtual('url').get(() => {
